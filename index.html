@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Calculator</title>
+
+  <!-- Google Fonts Import -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="typewritter">
+        <h1 class="primary-heading text-center">HusseyExplores</h1>
+      </div>
+    </div>
+    <div class="calc">
+      <div class="calc__header">
+        <div class="calc__operations-history text--grey" id="history"></div>
+        <hr class="calc__display-separator">
+        <div class="calc__input-display" id="display">0</div>
+      </div>
+      <div class="calc__body">
+        
+          <button class="calc__btn calc__btn-wide text--warning" id="clearBtn">CLEAR</button>
+          <button class="calc__btn calc__btn-del" id="delBtn"></button>
+          <button class="calc__btn num text--lightgrey" id="divideBtn">/</button>
+           
+          <button class="calc__btn num">7</button>
+          <button class="calc__btn num">8</button>
+          <button class="calc__btn num">9</button>
+          <button class="calc__btn num text--lightgrey" id="multiplyBtn">x</button>
+        
+          <button class="calc__btn num">4</button>
+          <button class="calc__btn num">5</button>
+          <button class="calc__btn num">6</button>
+          <button class="calc__btn num text--lightgrey" id="subtractBtn">-</button>
+ 
+          <button class="calc__btn num">1</button>
+          <button class="calc__btn num">2</button>
+          <button class="calc__btn num">3</button>
+          <button class="calc__btn num text--lightgrey" id="addBtn">+</button>
+
+          <button class="calc__btn num">.</button>
+          <button class="calc__btn num">0</button>
+          <button class="calc__btn calc__btn-wide text--fone" id="isEqualBtn">=</button>
+        
+      </div>
+    </div>
+  </div>
+
+  <!-- Calculator Functions -->
+  <script src="js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5% // Defines 1 rem.  1rem === 10px. [ 10px/16px*100 = 62.5%  ]
+}
+
+body {
+  box-sizing: border-box;
+  font-size: $default-font-size;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  background-color: $color-bg--darkest;
+  display: flex;
+  align-items: center;
+}
+
+.primary-heading {
+  color: $color-white;
+  font-family: monospace;
+  font-size: 3rem;
+  letter-spacing: 3px;
+  font-weight: bold;
+}
+
+
+.typewritter h1 {
+  font-family: monospace;
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid $color-fone; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em; /* Adjust as needed */
+  animation: 
+    typing 3.5s steps(30, end),
+    blink-caret 1s step-end infinite;
+}

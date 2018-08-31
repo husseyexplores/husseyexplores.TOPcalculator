@@ -1,0 +1,151 @@
+/*
+   0 - 600px:        Phone
+   600 - 900px:      Tablet - Portrait
+   900 - 1200px:     Tablet - Landscape
+   1200 - 1800px:    Normal styles - Desktop [Desktop first approach]
+   1800px+:       Big desktop
+
+
+   $breakpoint argument choices:
+      - phone
+      - tab-port
+      - tab-land
+      - big-desk
+*/
+.text--warning {
+  color: #D95D4E !important; }
+
+.text--lightgrey {
+  color: #DADADA !important; }
+
+.text--grey {
+  color: #979797 !important; }
+
+.text--fone {
+  color: #ffdb65 !important; }
+
+.text-center {
+  text-align: center; }
+
+@keyframes blinker {
+  from,
+  to {
+    opacity: 0; }
+  50% {
+    opacity: 1; } }
+
+/* The typing effect */
+@keyframes typing {
+  from {
+    width: 0; }
+  to {
+    width: 100%; } }
+
+/* The typewriter cursor effect */
+@keyframes blink-caret {
+  from, to {
+    border-color: transparent; }
+  50% {
+    border-color: #ffdb65; } }
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: inherit; }
+
+html {
+  font-size: 62.5%; }
+
+body {
+  box-sizing: border-box;
+  font-size: 1.6rem;
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  background-color: #111317;
+  display: flex;
+  align-items: center; }
+
+.primary-heading {
+  color: #FFF;
+  font-family: monospace;
+  font-size: 3rem;
+  letter-spacing: 3px;
+  font-weight: bold; }
+
+.typewritter h1 {
+  font-family: monospace;
+  overflow: hidden;
+  /* Ensures the content is not revealed until the animation */
+  border-right: 0.15em solid #ffdb65;
+  /* The typwriter cursor */
+  white-space: nowrap;
+  /* Keeps the content on a single line */
+  margin: 0 auto;
+  /* Gives that scrolling effect as the typing happens */
+  letter-spacing: .15em;
+  /* Adjust as needed */
+  animation: typing 3.5s steps(30, end), blink-caret 1s step-end infinite; }
+
+.container {
+  position: relative;
+  margin: 5rem auto;
+  max-width: 114rem; }
+
+.row {
+  margin: 4rem auto;
+  display: flex;
+  justify-content: center; }
+
+.calc {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas: "header" "body";
+  width: 37.5rem;
+  border: solid 1px #3A4655;
+  box-shadow: 0.7rem 0.7rem 0 #1d242d;
+  margin: 0 auto;
+  background-color: #3A4655; }
+  .calc__header {
+    grid-area: header;
+    text-align: right;
+    flex: 0 0 100%;
+    padding: 2.5rem; }
+  .calc__operations-history {
+    font-size: 1.6rem;
+    min-height: 1.9rem; }
+  .calc__display-separator {
+    margin: 1.5rem auto;
+    border: none;
+    border-bottom: 1px solid #8794a5; }
+  .calc__input-display {
+    color: #FFF;
+    font-size: 4rem;
+    position: relative;
+    padding-right: 3px; }
+  .calc__body {
+    grid-area: body;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 1px; }
+  .calc__btn {
+    background-color: #425062;
+    color: #FFF;
+    outline: none;
+    border: none;
+    padding: 2rem;
+    font-size: 2.5rem;
+    cursor: pointer;
+    margin: 0 2px 2px 0;
+    transition: transform .2s ease; }
+    .calc__btn:active {
+      transform: scale(0.92); }
+    .calc__btn:hover {
+      background-color: rgba(255, 255, 255, 0.2); }
+  .calc__btn-wide {
+    grid-column-end: span 2; }
+  .calc__btn-del {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 31.494 31.494' width='25px' fill='%23dadada'%3E%3Cpath d='M10.273 5.009a1.112 1.112 0 0 1 1.587 0 1.12 1.12 0 0 1 0 1.571l-8.047 8.047h26.554c.619 0 1.127.492 1.127 1.111s-.508 1.127-1.127 1.127H3.813l8.047 8.032c.429.444.429 1.159 0 1.587a1.112 1.112 0 0 1-1.587 0L.321 16.532a1.12 1.12 0 0 1 0-1.571l9.952-9.952z'/%3E%3C/svg%3E"); }
