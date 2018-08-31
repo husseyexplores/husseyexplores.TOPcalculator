@@ -66,6 +66,12 @@ const keyboardInputHandler = (e) => {
   // if nothing matches
   if (!keyCodeMatch) return;
 
+  // if clear key 
+  if (keyCodes.clear.indexOf(e.keyCode) !== -1) {
+    clearDisplayHandler();
+    return;
+  }
+
   // if backspace
   if (keyCodes.backspace.indexOf(e.keyCode) !== -1) {
     backspace();
@@ -95,18 +101,23 @@ const keyboardInputHandler = (e) => {
   }
 }
 
-// Removes last value
+// Removes last value - backspace button
 const backspace = () => {
   // If it is a last digit, then replace it by 0
   if (display.innerHTML.length === 1) {
     display.innerHTML = '0';
-    return;
   }
 
   // otherwise delete the last keyword
   const newVals = display.innerHTML.split('');
   newVals.pop();
   display.innerHTML = newVals.join('');
+}
+
+// Clears the display - CLEAR button
+const clearDisplayHandler = () => {
+  display.innerHTML = '0';
+  history.innerHTML = '';
 }
 
 // Final Calculations and Update the the display;
@@ -134,10 +145,7 @@ const replaceLastOperator = (string, operator) => {
 }
 
 // CLEAR KEY
-clearBtn.addEventListener('click', () => {
-  display.innerHTML = '0';
-  history.innerHTML = '';
-});
+clearBtn.addEventListener('click', clearDisplayHandler);
 
 // DEL BKEY
 delBtn.addEventListener('click', backspace);
