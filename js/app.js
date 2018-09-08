@@ -38,15 +38,17 @@ const digitsClickHandler = (e) => {
   const currentVal = e.target;
 
   // if last input is an operator 
-  if (replaceLastOperator(display.innerHTML, currentVal.innerHTML)) return;
+  if (checkLastOperator(display.innerHTML, currentVal.innerHTML)) {
+    const newOp = replaceLastOperator(display.innerHTML, currentVal.innerHTML);
+    display.innerHTML = newOp;
+    return
+  };
 
   if (display.innerHTML === '0' && currentVal.innerHTML !== '.') {
     display.innerHTML = currentVal.innerHTML;
   } else if ((display.innerHTML.length <= 12 && currentVal.innerHTML !== '.') || (display.innerHTML === '0' && currentVal.innerHTML === '.')) {
     display.innerHTML += currentVal.innerHTML;
-  } else if (display.innerHTML.match(/([0-9])/g).length <= 11) {
-    display.innerHTML += currentVal.innerHTML;
-  } else if (display.innerHTML.match(/([0-9])/g).length === 12) {
+  } else if (display.innerHTML.length <= 12) {
     // If decimal point not exists in last digits, then allow decimal digit, else no.
     const digitsArr = display.innerHTML.match(/([0-9\.]+)/g);
     if (digitsArr[digitsArr.length - 1].indexOf('.') === -1) {
@@ -85,7 +87,12 @@ const keyboardInputHandler = (e) => {
   }
 
   // if last input is an operator, and current is also an operator then replace
-  if (replaceLastOperator(display.innerHTML, currentVal)) return;
+  // if last input is an operator 
+  if (checkLastOperator(display.innerHTML, currentVal.innerHTML)) {
+    const newOp = replaceLastOperator(display.innerHTML, currentVal.innerHTML);
+    display.innerHTML = newOp;
+    return
+  };
 
   // Basic math checks
   if (display.innerHTML === '0' && currentVal !== '.') {
@@ -133,7 +140,7 @@ const calculateExpression = (e) => {
   display.innerHTML = result;
 }
 
-const replaceLastOperator = (string, operator) => {
+const checkLastOperator = (string, operator) => {
   // if last input is an operator, and current is also an operator then replace
   if (string.match(/([+|\-|/|x|*]$)/g) !== null && (operator == '-' || operator == '+' || operator == 'x' || operator == '*' || operator == '/')) {
     let splitArr = string.split(/([+|\-|/|x|*]$)/g);
@@ -142,6 +149,15 @@ const replaceLastOperator = (string, operator) => {
     return true;
   }
   return false;
+}
+const replaceLastOperator = (string, operator) => {
+  // if last input is an operator, and current is also an operator then replace
+  if (string.match(/([+|\-|/|x|*]$)/g) !== null && (operator == '-' || operator == '+' || operator == 'x' || operator == '*' || operator == '/')) {
+    let splitArr = string.split(/([+|\-|/|x|*]$)/g);
+    splitArr[splitArr.length - 2] = operator;
+    string = splitArr.join('');
+    return string;
+  }
 }
 
 // CLEAR KEY
