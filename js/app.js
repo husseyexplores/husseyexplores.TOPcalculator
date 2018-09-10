@@ -6,7 +6,27 @@ const divide = (num1, num2) => num1 / num2;
 const percent = num => num / 100;
 
 const keyCodes = {
-  digits: [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 97, 98, 99, 100, 101, 102, 103, 104, 105],
+  digits: [
+    48,
+    49,
+    50,
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    97,
+    98,
+    99,
+    100,
+    101,
+    102,
+    103,
+    104,
+    105
+  ],
   decimal: [190, 110],
   plus: [187, 107],
   minus: [189, 109],
@@ -15,60 +35,63 @@ const keyCodes = {
   isEqual: [187],
   enter: [12, 13],
   backspace: [8],
-  clear: [46],
-}
+  clear: [46]
+};
 
-const history = document.querySelector('#history');
-const display = document.querySelector('#display');
+const history = document.querySelector("#history");
+const display = document.querySelector("#display");
 
-const clearBtn = document.querySelector('#clearBtn');
+const clearBtn = document.querySelector("#clearBtn");
 
-const addBtn = document.querySelector('#addBtn');
-const subtractBtn = document.querySelector('#subtractBtn');
-const multiplyBtn = document.querySelector('#multiplyBtn');
-const divideBtn = document.querySelector('#divideBtn');
+const addBtn = document.querySelector("#addBtn");
+const subtractBtn = document.querySelector("#subtractBtn");
+const multiplyBtn = document.querySelector("#multiplyBtn");
+const divideBtn = document.querySelector("#divideBtn");
 
-const delBtn = document.querySelector('#delBtn');
+const delBtn = document.querySelector("#delBtn");
 
-const isEqualBtn = document.querySelector('#isEqualBtn');
+const isEqualBtn = document.querySelector("#isEqualBtn");
 
-const numbers = document.querySelectorAll('.num');
+const numbers = document.querySelectorAll(".num");
 
-const digitsClickHandler = (e) => {
+const digitsClickHandler = e => {
   const currentVal = e.target;
 
-  // if last input is an operator 
+  // if last input is an operator
   if (checkLastOperator(display.innerHTML, currentVal.innerHTML)) {
     const newOp = replaceLastOperator(display.innerHTML, currentVal.innerHTML);
     display.innerHTML = newOp;
-    return
-  };
+    return;
+  }
 
-  if (display.innerHTML === '0' && currentVal.innerHTML !== '.') {
+  if (display.innerHTML === "0" && currentVal.innerHTML !== ".") {
     display.innerHTML = currentVal.innerHTML;
-  } else if ((display.innerHTML.length <= 12 && currentVal.innerHTML !== '.') || (display.innerHTML === '0' && currentVal.innerHTML === '.')) {
+  } else if (
+    (display.innerHTML.length <= 12 && currentVal.innerHTML !== ".") ||
+    (display.innerHTML === "0" && currentVal.innerHTML === ".")
+  ) {
     display.innerHTML += currentVal.innerHTML;
   } else if (display.innerHTML.length <= 12) {
     // If decimal point not exists in last digits, then allow decimal digit, else no.
     const digitsArr = display.innerHTML.match(/([0-9\.]+)/g);
-    if (digitsArr[digitsArr.length - 1].indexOf('.') === -1) {
+    if (digitsArr[digitsArr.length - 1].indexOf(".") === -1) {
       display.innerHTML += currentVal.innerHTML;
     }
   }
-}
+};
 
 // Keyboard input handler
-const keyboardInputHandler = (e) => {
+const keyboardInputHandler = e => {
   const currentVal = e.key;
 
   let keyCodeMatch = false;
   for (key in keyCodes) {
-    keyCodes[key].indexOf(e.keyCode) !== -1 ? keyCodeMatch = true : '';
+    keyCodes[key].indexOf(e.keyCode) !== -1 ? (keyCodeMatch = true) : "";
   }
   // if nothing matches
   if (!keyCodeMatch) return;
 
-  // if clear key 
+  // if clear key
   if (keyCodes.clear.indexOf(e.keyCode) !== -1) {
     clearDisplayHandler();
     return;
@@ -81,7 +104,10 @@ const keyboardInputHandler = (e) => {
   }
 
   // if enter or isEqual
-  if ((keyCodes.isEqual.indexOf(e.keyCode) !== -1 && e.key === '=') || keyCodes.enter.indexOf(e.keyCode) !== -1) {
+  if (
+    (keyCodes.isEqual.indexOf(e.keyCode) !== -1 && e.key === "=") ||
+    keyCodes.enter.indexOf(e.keyCode) !== -1
+  ) {
     calculateExpression();
     return;
   }
@@ -90,89 +116,109 @@ const keyboardInputHandler = (e) => {
   if (checkLastOperator(display.innerHTML, currentVal)) {
     const newOp = replaceLastOperator(display.innerHTML, currentVal);
     display.innerHTML = newOp;
-    return
-  };
+    return;
+  }
 
   // Basic math checks
-  if (display.innerHTML === '0' && currentVal !== '.') {
+  if (display.innerHTML === "0" && currentVal !== ".") {
     display.innerHTML = currentVal;
-  } else if ((display.innerHTML.length <= 12 && currentVal !== '.') || (display.innerHTML === '0' && currentVal === '.')) {
+  } else if (
+    (display.innerHTML.length <= 12 && currentVal !== ".") ||
+    (display.innerHTML === "0" && currentVal === ".")
+  ) {
     display.innerHTML += currentVal;
   } else if (display.innerHTML.length <= 12) {
     // If decimal point not exists in last digits, then allow decimal digit, else no.
     const digitsArr = display.innerHTML.match(/([0-9\.]+)/g);
-    if (digitsArr[digitsArr.length - 1].indexOf('.') === -1) {
+    if (digitsArr[digitsArr.length - 1].indexOf(".") === -1) {
       display.innerHTML += currentVal;
     }
   }
-}
+};
 
 // Removes last value - backspace button
 const backspace = () => {
   // If it is a last digit, then replace it by 0
   if (display.innerHTML.length === 1) {
-    display.innerHTML = '0';
+    display.innerHTML = "0";
+    return;
   }
 
   // otherwise delete the last keyword
-  const newVals = display.innerHTML.split('');
+  const newVals = display.innerHTML.split("");
   newVals.pop();
-  display.innerHTML = newVals.join('');
-}
+  display.innerHTML = newVals.join("");
+};
 
 // Clears the display - CLEAR button
 const clearDisplayHandler = () => {
-  display.innerHTML = '0';
-  history.innerHTML = '';
-}
+  display.innerHTML = "0";
+  history.innerHTML = "";
+};
 
 // Final Calculations and Update the the display;
-const calculateExpression = (e) => {
-
+const calculateExpression = e => {
   if (display.innerHTML.match(/([+|\-|/|x]$)/g)) return;
 
   history.innerHTML = display.innerHTML;
-  const curExpression = display.innerHTML.replace(/([x])/g, '*');
+  const curExpression = display.innerHTML.replace(/([x])/g, "*");
   let result = eval(curExpression);
-  result = parseFloat(result.toFixed(13 - result.toString().split('.')[0].length), 10);
+  result = parseFloat(
+    result.toFixed(13 - result.toString().split(".")[0].length),
+    10
+  );
 
   display.innerHTML = result;
-}
+};
 
 const checkLastOperator = (string, operator) => {
   // if last input is an operator, and current is also an operator then replace
-  if (string.match(/([+|\-|/|x|*]$)/g) !== null && (operator == '-' || operator == '+' || operator == 'x' || operator == '*' || operator == '/')) {
+  if (
+    string.match(/([+|\-|/|x|*]$)/g) !== null &&
+    (operator == "-" ||
+      operator == "+" ||
+      operator == "x" ||
+      operator == "*" ||
+      operator == "/")
+  ) {
     let splitArr = string.split(/([+|\-|/|x|*]$)/g);
     splitArr[1] = operator;
-    string = splitArr.join('');
+    string = splitArr.join("");
     return true;
   }
   return false;
-}
+};
 const replaceLastOperator = (string, operator) => {
   // if last input is an operator, and current is also an operator then replace
-  if (string.match(/([+|\-|/|x|*]$)/g) !== null && (operator == '-' || operator == '+' || operator == 'x' || operator == '*' || operator == '/')) {
+  if (
+    string.match(/([+|\-|/|x|*]$)/g) !== null &&
+    (operator == "-" ||
+      operator == "+" ||
+      operator == "x" ||
+      operator == "*" ||
+      operator == "/")
+  ) {
     let splitArr = string.split(/([+|\-|/|x|*]$)/g);
     splitArr[splitArr.length - 2] = operator;
-    string = splitArr.join('');
+    string = splitArr.join("");
     return string;
   }
-}
+};
 
 // CLEAR KEY
-clearBtn.addEventListener('click', clearDisplayHandler);
+clearBtn.addEventListener("click", clearDisplayHandler);
 
 // DEL BKEY
-delBtn.addEventListener('click', backspace);
+delBtn.addEventListener("click", backspace);
 
 // Show display for each keyboard hit
 numbers.forEach(num => {
-  num.addEventListener('click', digitsClickHandler)
+  num.addEventListener("click", digitsClickHandler);
 });
 
 // Calculate the values after hitting = button
-isEqualBtn.addEventListener('click', calculateExpression);
+isEqualBtn.addEventListener("click", calculateExpression);
 
-document.addEventListener('keyup', keyboardInputHandler);
+document.addEventListener("keyup", keyboardInputHandler);
 
 //}
