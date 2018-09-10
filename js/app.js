@@ -87,9 +87,8 @@ const keyboardInputHandler = (e) => {
   }
 
   // if last input is an operator, and current is also an operator then replace
-  // if last input is an operator 
-  if (checkLastOperator(display.innerHTML, currentVal.innerHTML)) {
-    const newOp = replaceLastOperator(display.innerHTML, currentVal.innerHTML);
+  if (checkLastOperator(display.innerHTML, currentVal)) {
+    const newOp = replaceLastOperator(display.innerHTML, currentVal);
     display.innerHTML = newOp;
     return
   };
